@@ -28,19 +28,19 @@ const Index = () => {
         <ResourcesSection />
 
         {/* CTA Section */}
-        <section className="my-20 rounded-[2.5rem] bg-primary p-12 md:p-16 text-center animate-scale-in">
-          <div className="max-w-2xl mx-auto space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-primary-foreground">
-              Ready to Start Your Journey?
+        <section className="my-20 py-16 border-t border-b border-border text-center animate-fade-in">
+          <div className="max-w-2xl mx-auto space-y-6">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              Begin Your Preparation
             </h2>
-            <p className="text-xl text-primary-foreground/80 leading-relaxed">
-              Take the first step towards your UPSC dream. Get personalized guidance and a clear roadmap to success.
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Get personalized guidance and a strategic roadmap for your civil services journey.
             </p>
             <a 
               href="/contact"
-              className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-background text-foreground font-medium hover:bg-background/90 hover:scale-105 transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all"
             >
-              Book a Consultation
+              Schedule a Consultation
               <ArrowRight className="w-5 h-5" />
             </a>
           </div>
