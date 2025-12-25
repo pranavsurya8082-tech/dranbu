@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import WelcomeSection from "@/components/WelcomeSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import UpcomingEventsSection from "@/components/UpcomingEventsSection";
 import ResourcesSection from "@/components/ResourcesSection";
@@ -14,9 +13,6 @@ const Index = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
         <HeroSection />
-
-        {/* Welcome Message */}
-        <WelcomeSection />
 
         {/* Testimonials Section */}
         <TestimonialsSection />
