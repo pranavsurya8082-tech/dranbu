@@ -47,7 +47,9 @@ const HeroSection = () => {
 
             <div className="flex items-center gap-4">
               <a
-                href="#instagram"
+                href="https://www.instagram.com/dranbuarumugam"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full border-2 border-border hover:border-primary hover:bg-muted transition-all flex items-center justify-center hover:scale-110"
                 aria-label="Instagram"
               >
@@ -61,7 +63,9 @@ const HeroSection = () => {
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="#linkedin"
+                href="https://www.linkedin.com/in/dranbuarumugam"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full border-2 border-border hover:border-primary hover:bg-muted transition-all flex items-center justify-center hover:scale-110"
                 aria-label="LinkedIn"
               >
