@@ -1,31 +1,12 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import { BookOpen, Target, Users, Award, ArrowRight } from "lucide-react";
+import WelcomeSection from "@/components/WelcomeSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import UpcomingEventsSection from "@/components/UpcomingEventsSection";
+import ResourcesSection from "@/components/ResourcesSection";
+import { ArrowRight } from "lucide-react";
 
 const Index = () => {
-  const services = [
-    {
-      icon: BookOpen,
-      title: "UPSC Preparation",
-      description: "Comprehensive guidance for Prelims, Mains, and Interview with proven study strategies.",
-    },
-    {
-      icon: Target,
-      title: "Career Counselling",
-      description: "Strategic career planning to help you choose the right path in civil services.",
-    },
-    {
-      icon: Users,
-      title: "Personal Mentorship",
-      description: "One-on-one mentoring sessions tailored to your strengths and areas of improvement.",
-    },
-    {
-      icon: Award,
-      title: "Mock Interviews",
-      description: "Practice sessions with feedback to build confidence for the personality test.",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-background animate-fade-in">
       <Header />
@@ -34,28 +15,17 @@ const Index = () => {
         {/* Hero Section */}
         <HeroSection />
 
-        {/* Services Section */}
-        <section id="services" className="py-16">
-          <div className="text-center mb-12 animate-slide-up">
-            <p className="text-accent font-medium text-sm uppercase tracking-wider mb-4">What I Offer</p>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Services & Guidance</h2>
-          </div>
+        {/* Welcome Message */}
+        <WelcomeSection />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service, index) => (
-              <div 
-                key={service.title} 
-                className={`bg-card rounded-2xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-slide-up stagger-${Math.min(index + 1, 6)}`}
-              >
-                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
-                  <service.icon className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* Testimonials Section */}
+        <TestimonialsSection />
+
+        {/* Upcoming Events Section */}
+        <UpcomingEventsSection />
+
+        {/* Resources Section */}
+        <ResourcesSection />
 
         {/* CTA Section */}
         <section className="my-20 rounded-[2.5rem] bg-primary p-12 md:p-16 text-center animate-scale-in">
