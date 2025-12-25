@@ -39,23 +39,43 @@ const About = () => {
         <section className="mb-16 rounded-2xl bg-card p-8 md:p-12">
           <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
             <GraduationCap className="h-8 w-8 text-primary" />
-            Academic Credentials
+            Education
           </h2>
-          <div className="space-y-4 text-muted-foreground">
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <Award className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                <span><strong>University of Madras Gold Medalist</strong> - MA Public Administration (2003)</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Award className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                <span><strong>UGC-NET & Junior Research Fellow</strong> (2006)</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Award className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                <span><strong>PhD</strong> (2016)</span>
-              </li>
-            </ul>
+          <div className="space-y-6 text-muted-foreground">
+            <div className="border-l-2 border-primary pl-6 space-y-6">
+              <div>
+                <h3 className="font-semibold text-foreground">University of Madras</h3>
+                <p>Doctor of Philosophy (Ph.D.), Public Administration</p>
+                <p className="text-sm">2011 - 2016</p>
+                <p className="text-sm text-primary">Grade: Highly Commended</p>
+              </div>
+              
+              <div>
+                <h3 className="font-semibold text-foreground">Annamalai University</h3>
+                <p>Master of Philosophy (M.Phil.), Public Administration</p>
+                <p className="text-sm">2004 - 2006</p>
+              </div>
+              
+              <div>
+                <h3 className="font-semibold text-foreground">University Grants Commission (UGC)</h3>
+                <p>National Eligibility Test (NET), Public Administration</p>
+                <p className="text-sm">2006</p>
+                <p className="text-sm text-primary">Grade: Ranked with Junior Research Fellowship</p>
+              </div>
+              
+              <div>
+                <h3 className="font-semibold text-foreground">Anna Adarsh College For Women</h3>
+                <p>Master's Degree, Public Administration</p>
+                <p className="text-sm">2001 - 2003</p>
+                <p className="text-sm text-primary">University of Madras Gold Medalist</p>
+              </div>
+              
+              <div>
+                <h3 className="font-semibold text-foreground">Ethiraj College For Women</h3>
+                <p>Bachelor of Commerce (B.Com.), Business Administration and Management</p>
+                <p className="text-sm">1998 - 2001</p>
+              </div>
+            </div>
           </div>
         </section>
 
