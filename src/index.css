@@ -8,97 +8,97 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Warm, sophisticated palette inspired by the design */
-    --background: 36 44% 96%;
-    --foreground: 0 0% 18%;
+    /* Clean white and dark blue palette */
+    --background: 0 0% 100%;
+    --foreground: 217 50% 15%;
 
-    --card: 33 40% 94%;
-    --card-foreground: 0 0% 18%;
+    --card: 210 40% 98%;
+    --card-foreground: 217 50% 15%;
 
-    --popover: 36 44% 96%;
-    --popover-foreground: 0 0% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 50% 15%;
 
-    --primary: 0 0% 18%;
-    --primary-foreground: 36 44% 96%;
+    --primary: 217 70% 25%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 25 30% 70%;
-    --secondary-foreground: 0 0% 18%;
+    --secondary: 210 30% 90%;
+    --secondary-foreground: 217 50% 15%;
 
-    --muted: 33 30% 88%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 217 30% 45%;
 
-    --accent: 140 20% 50%;
-    --accent-foreground: 36 44% 96%;
+    --accent: 217 80% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 36 44% 96%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 33 25% 85%;
-    --input: 33 25% 85%;
-    --ring: 0 0% 18%;
+    --border: 210 25% 88%;
+    --input: 210 25% 88%;
+    --ring: 217 70% 25%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
     /* Custom design tokens */
-    --tag-financing: 210 50% 75%;
-    --tag-lifestyle: 140 20% 70%;
-    --tag-community: 25 35% 60%;
-    --tag-wellness: 280 30% 75%;
-    --tag-travel: 195 50% 70%;
-    --tag-creativity: 330 40% 75%;
-    --tag-growth: 50 45% 70%;
+    --tag-financing: 217 60% 85%;
+    --tag-lifestyle: 180 40% 80%;
+    --tag-community: 217 40% 75%;
+    --tag-wellness: 260 50% 85%;
+    --tag-travel: 195 60% 80%;
+    --tag-creativity: 330 50% 85%;
+    --tag-growth: 45 60% 80%;
 
     /* Polish design tokens */
-    --cream: 40 40% 90%;
-    --cream-foreground: 0 0% 18%;
-    --surface-elevated: 36 44% 98%;
-    --shadow-soft: 0 0% 0%;
+    --cream: 210 30% 96%;
+    --cream-foreground: 217 50% 15%;
+    --surface-elevated: 0 0% 100%;
+    --shadow-soft: 217 50% 15%;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 0 0% 10%;
-    --foreground: 36 44% 96%;
+    --background: 217 50% 8%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 14%;
-    --card-foreground: 36 44% 96%;
+    --card: 217 45% 12%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 10%;
-    --popover-foreground: 36 44% 96%;
+    --popover: 217 50% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 36 44% 96%;
-    --primary-foreground: 0 0% 18%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 217 50% 15%;
 
-    --secondary: 25 15% 30%;
-    --secondary-foreground: 36 44% 96%;
+    --secondary: 217 40% 20%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 217 35% 18%;
+    --muted-foreground: 210 20% 65%;
 
-    --accent: 140 20% 45%;
-    --accent-foreground: 36 44% 96%;
+    --accent: 217 70% 55%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 50%;
-    --destructive-foreground: 36 44% 96%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 36 44% 96%;
+    --border: 217 35% 22%;
+    --input: 217 35% 22%;
+    --ring: 210 40% 98%;
 
     /* Dark mode tag colors */
-    --tag-financing: 210 40% 45%;
-    --tag-lifestyle: 140 20% 40%;
-    --tag-community: 25 30% 40%;
-    --tag-wellness: 280 25% 45%;
-    --tag-travel: 195 40% 45%;
-    --tag-creativity: 330 35% 45%;
-    --tag-growth: 50 40% 45%;
+    --tag-financing: 217 50% 35%;
+    --tag-lifestyle: 180 35% 35%;
+    --tag-community: 217 35% 40%;
+    --tag-wellness: 260 40% 40%;
+    --tag-travel: 195 45% 35%;
+    --tag-creativity: 330 40% 40%;
+    --tag-growth: 45 50% 40%;
 
     /* Dark mode polish tokens */
-    --cream: 40 20% 25%;
-    --cream-foreground: 36 44% 96%;
-    --surface-elevated: 0 0% 16%;
-    --shadow-soft: 0 0% 0%;
+    --cream: 217 40% 15%;
+    --cream-foreground: 210 40% 98%;
+    --surface-elevated: 217 45% 14%;
+    --shadow-soft: 217 50% 5%;
   }
 }
 
