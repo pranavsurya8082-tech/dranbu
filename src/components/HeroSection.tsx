@@ -12,9 +12,9 @@ const HeroSection = () => {
             Dr Anbu Arumugam
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl animate-slide-up stagger-1">
-            Dr Anbu Arumugam shares daily UPSC tips, guidance, and updates to streamline your preparation and stay motivated on the journey toward civil service.
-          </p>
+        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl animate-slide-up stagger-1">
+          Assistant Professor & Head, Department of Public Administration at Government Arts College, Chennai. With 18+ years of experience in teaching, research, and administration, specializing in gender equality, social equity, and sustainable development.
+        </p>
 
           {/* CTA and Social Links */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-4 animate-slide-up stagger-2">
