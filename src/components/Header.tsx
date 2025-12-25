@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAdmin } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 py-2 sm:py-4">
@@ -18,7 +20,6 @@ const Header = () => {
             </a>
           </div>
 
-
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-2">
             <a href="/" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all">
@@ -33,9 +34,12 @@ const Header = () => {
             <a href="/contact" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all">
               Contact
             </a>
-            <a href="/admin" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all">
-              Admin
-            </a>
+            {isAdmin && (
+              <a href="/admin" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all flex items-center gap-1.5">
+                <Settings className="h-4 w-4" />
+                Admin
+              </a>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -64,9 +68,12 @@ const Header = () => {
               <a href="/contact" className="text-sm font-medium hover:text-accent transition-colors">
                 Contact
               </a>
-              <a href="/admin" className="text-sm font-medium hover:text-accent transition-colors">
-                Admin
-              </a>
+              {isAdmin && (
+                <a href="/admin" className="text-sm font-medium hover:text-accent transition-colors flex items-center gap-1.5">
+                  <Settings className="h-4 w-4" />
+                  Admin
+                </a>
+              )}
             </nav>
           </div>
         )}
