@@ -1,4 +1,4 @@
-import { Instagram, Linkedin, GraduationCap, Target, Twitter } from "lucide-react";
+import { Instagram, Linkedin, GraduationCap, Target, Twitter, Mic, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
@@ -21,6 +21,14 @@ const HeroSection = () => {
             <span className="bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
               <Target className="w-4 h-4 text-accent" />
               Career Coach
+            </span>
+            <span className="bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+              <Mic className="w-4 h-4 text-accent" />
+              Public Speaker
+            </span>
+            <span className="bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-accent" />
+              Author
             </span>
           </div>
         </div>
