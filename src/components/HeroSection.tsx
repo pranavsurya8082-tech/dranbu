@@ -16,7 +16,7 @@ const HeroSection = () => {
           <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
             <span className="bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
               <GraduationCap className="w-4 h-4 text-accent" />
-              UPSC Expert
+              UPSC Mentor
             </span>
             <span className="bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
               <Target className="w-4 h-4 text-accent" />
