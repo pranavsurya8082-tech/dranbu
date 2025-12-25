@@ -152,29 +152,6 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-muted p-8">
-              <h3 className="text-xl font-bold mb-4">Frequently Asked Questions</h3>
-              <div className="space-y-4 text-sm">
-                <div>
-                  <h4 className="font-semibold mb-1">Can I contribute to Perspective?</h4>
-                  <p className="text-muted-foreground">
-                    Yes! We welcome guest contributions. Please use the form to submit your pitch or article idea.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">How do I advertise with you?</h4>
-                  <p className="text-muted-foreground">
-                    For advertising inquiries, email partnerships@perspective.blog with details about your brand.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Can I republish your content?</h4>
-                  <p className="text-muted-foreground">
-                    Please contact us for permissions and licensing. We're generally open to republishing with proper attribution.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </main>
