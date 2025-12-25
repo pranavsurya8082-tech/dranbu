@@ -18,6 +18,7 @@ const Header = () => {
             </a>
           </div>
 
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-2">
             <a href="/" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all">
@@ -31,6 +32,9 @@ const Header = () => {
             </a>
             <a href="/contact" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all">
               Contact
+            </a>
+            <a href="/admin" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all">
+              Admin
             </a>
           </nav>
 
@@ -59,6 +63,9 @@ const Header = () => {
               </a>
               <a href="/contact" className="text-sm font-medium hover:text-accent transition-colors">
                 Contact
+              </a>
+              <a href="/admin" className="text-sm font-medium hover:text-accent transition-colors">
+                Admin
               </a>
             </nav>
           </div>
