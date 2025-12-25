@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import IntroSection from "@/components/IntroSection";
+import ArticleCard from "@/components/ArticleCard";
+import { articles } from "@/data/articles";
 import { BookOpen, Target, Users, Award, ArrowRight } from "lucide-react";
 
 const Index = () => {
@@ -35,9 +36,6 @@ const Index = () => {
         {/* Hero Section */}
         <HeroSection />
 
-        {/* Intro Section */}
-        <IntroSection />
-
         {/* Services Section */}
         <section id="services" className="py-16">
           <div className="text-center mb-12 animate-slide-up">
@@ -57,6 +55,27 @@ const Index = () => {
                 <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Articles Section */}
+        <section id="articles" className="py-16">
+          <div className="text-center mb-12 animate-slide-up">
+            <p className="text-accent font-medium text-sm uppercase tracking-wider mb-4">Insights & Resources</p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Articles</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {articles.slice(0, 6).map((article, index) => (
+              <ArticleCard
+                key={article.id}
+                id={article.id}
+                title={article.title}
+                category={article.category}
+                date={article.date}
+                image={article.image}
+              />
             ))}
           </div>
         </section>
