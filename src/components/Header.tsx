@@ -23,6 +23,9 @@ const Header = () => {
             <a href="/" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all">
               Home
             </a>
+            <a href="/articles" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all">
+              Articles
+            </a>
             <a href="/about" className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all">
               About Me
             </a>
@@ -47,6 +50,9 @@ const Header = () => {
             <nav className="flex flex-col gap-4">
               <a href="/" className="text-sm font-medium hover:text-accent transition-colors">
                 Home
+              </a>
+              <a href="/articles" className="text-sm font-medium hover:text-accent transition-colors">
+                Articles
               </a>
               <a href="/about" className="text-sm font-medium hover:text-accent transition-colors">
                 About Me
