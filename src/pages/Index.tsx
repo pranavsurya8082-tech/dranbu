@@ -3,7 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import UpcomingEventsSection from "@/components/UpcomingEventsSection";
 import ResourcesSection from "@/components/ResourcesSection";
-import { ArrowRight } from "lucide-react";
+import ConsultationSection from "@/components/ConsultationSection";
 
 const Index = () => {
   return (
@@ -23,24 +23,8 @@ const Index = () => {
         {/* Resources Section */}
         <ResourcesSection />
 
-        {/* CTA Section */}
-        <section className="my-20 py-16 border-t border-b border-border text-center animate-fade-in">
-          <div className="max-w-2xl mx-auto space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Begin Your Preparation
-            </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Get personalized guidance and a strategic roadmap for your civil services journey.
-            </p>
-            <a 
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all"
-            >
-              Schedule a Consultation
-              <ArrowRight className="w-5 h-5" />
-            </a>
-          </div>
-        </section>
+        {/* Consultation CTA Section with Pulse Beams */}
+        <ConsultationSection />
       </main>
 
       {/* Footer */}
