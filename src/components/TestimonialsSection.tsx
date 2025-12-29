@@ -1,83 +1,60 @@
-import { Star, Quote } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { CircularTestimonials } from "@/components/ui/circular-testimonials";
+
+const fakeTestimonials = [
+  {
+    quote:
+      "Dr. Anbu's guidance transformed my approach to civil services preparation. His insights on public administration and strategic thinking helped me crack the exam in my first attempt.",
+    name: "Priya Sharma",
+    designation: "IAS Officer, 2023 Batch",
+    src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face",
+  },
+  {
+    quote:
+      "The mentorship I received was invaluable. Dr. Anbu's deep understanding of governance and policy-making gave me a unique perspective that set me apart in the interview rounds.",
+    name: "Rajesh Kumar",
+    designation: "IPS Officer, Tamil Nadu Cadre",
+    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+  },
+  {
+    quote:
+      "His research-oriented approach and practical examples made complex topics accessible. Dr. Anbu is not just a teacher but a true mentor who cares about each student's success.",
+    name: "Anitha Venkatesh",
+    designation: "Research Scholar, JNU",
+    src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+  },
+  {
+    quote:
+      "Dr. Anbu's expertise in gender equality and social equity opened my eyes to important dimensions of public policy. His classes are always engaging and thought-provoking.",
+    name: "Mohammed Faisal",
+    designation: "Civil Services Aspirant",
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+  },
+];
 
 const TestimonialsSection = () => {
-  const { data: testimonials = [], isLoading } = useQuery({
-    queryKey: ["testimonials"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("testimonials")
-        .select("*")
-        .eq("published", true)
-        .order("created_at", { ascending: false });
-      
-      if (error) throw error;
-      return data;
-    },
-  });
-
-  if (isLoading) {
-    return (
-      <section className="py-16 animate-fade-in">
-        <div className="text-center mb-12">
-          <p className="text-accent font-medium text-sm uppercase tracking-wider mb-4">Testimonials</p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">What My Students Say</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-card rounded-2xl p-6 animate-pulse">
-              <div className="h-32 bg-muted rounded mb-4"></div>
-              <div className="h-4 bg-muted rounded w-1/2"></div>
-            </div>
-          ))}
-        </div>
-      </section>
-    );
-  }
-
-  const isEmpty = testimonials.length === 0;
-
   return (
     <section className="py-16 animate-fade-in">
-      <div className="text-center mb-12">
-        <p className="text-accent font-medium text-sm uppercase tracking-wider mb-4">Testimonials</p>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">What My Students Say</h2>
+      <div className="text-center mb-8">
+        <p className="text-accent font-medium text-sm uppercase tracking-wider mb-4">
+          Testimonials
+        </p>
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+          What My Students Say
+        </h2>
       </div>
 
-      {isEmpty ? (
-        <div className="text-center py-12 text-muted-foreground">
-          <p>No testimonials yet.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={testimonial.id}
-              className={`bg-card rounded-2xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-slide-up stagger-${Math.min(index + 1, 6)}`}
-            >
-              <Quote className="w-10 h-10 text-accent/20 mb-4" />
-              
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                "{testimonial.content}"
-              </p>
-              
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(testimonial.rating || 5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                ))}
-              </div>
-              
-              <div className="border-t border-border pt-4">
-                <p className="font-semibold">{testimonial.name}</p>
-                {testimonial.role && (
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      <CircularTestimonials
+        testimonials={fakeTestimonials}
+        autoplay={true}
+        colors={{
+          name: "hsl(var(--foreground))",
+          designation: "hsl(var(--muted-foreground))",
+          testimony: "hsl(var(--muted-foreground))",
+          arrowBackground: "hsl(var(--primary))",
+          arrowForeground: "hsl(var(--primary-foreground))",
+          arrowHoverBackground: "hsl(var(--accent))",
+        }}
+      />
     </section>
   );
 };
