@@ -13,7 +13,7 @@ export default function WarpShaderBackground({ children, className }: WarpShader
         <Warp
           speed={0.3}
           scale={1.2}
-          colors={["#0a0a0f", "#1a1a2e", "#16213e", "#0f3460"]}
+          colors={["#0369a1", "#0284c7", "#0ea5e9", "#38bdf8", "#7dd3fc"]}
           distortion={0.5}
           swirl={0.4}
           swirlIterations={8}
