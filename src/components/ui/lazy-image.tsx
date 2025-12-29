@@ -60,7 +60,7 @@ export function LazyImage({
     <AspectRatio ref={ref} ratio={ratio} className={cn('overflow-hidden', AspectRatioClassName)}>
       <div
         className={cn(
-          'absolute inset-0 bg-muted animate-pulse transition-opacity duration-300',
+          'absolute inset-0 bg-muted transition-opacity duration-300',
           isLoading ? 'opacity-100' : 'opacity-0'
         )}
       />
