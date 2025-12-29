@@ -154,7 +154,7 @@ const HeroSection = () => {
                 <img
                   src={drAnbuFull}
                   alt="Dr Anbu Arumugam"
-                  className="relative z-10 h-[320px] md:h-[480px] w-auto object-contain drop-shadow-2xl"
+                  className="relative z-10 h-[320px] md:h-[480px] w-auto object-contain"
                   style={{
                     filter: "drop-shadow(0 0 30px rgba(59, 130, 246, 0.3))",
                   }}
