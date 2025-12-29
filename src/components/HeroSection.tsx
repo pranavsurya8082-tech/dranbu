@@ -1,6 +1,6 @@
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Spotlight } from "@/components/ui/spotlight";
+import AnimatedShaderBackground from "@/components/ui/animated-shader-background";
 import { motion } from "framer-motion";
 import drAnbuFull from "@/assets/dr-anbu-transparent.png";
 
@@ -8,12 +8,13 @@ const HeroSection = () => {
   return (
     <section className="pt-0 pb-12 md:pb-20 animate-fade-in">
       <div className="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-2xl overflow-hidden min-h-[500px] md:min-h-[600px]">
-        <Spotlight
-          className="-top-40 left-0 md:left-60 md:-top-20"
-          fill="#3b82f6"
-        />
+        {/* Animated Shader Background */}
+        <AnimatedShaderBackground className="absolute inset-0 z-0 opacity-60" />
         
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center h-full">
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 via-blue-950/30 to-slate-900/50 z-[1]" />
+        
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center h-full relative z-[2]">
           {/* Left Column - Content */}
           <div className="space-y-6 p-8 md:p-12 relative z-10">
             <motion.h1 
