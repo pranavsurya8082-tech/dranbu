@@ -43,7 +43,7 @@ const LiveEventAlert = ({ event, onClose }: LiveEventAlertProps) => {
         <Button
           variant="ghost"
           size="icon"
-          className="opacity-60 hover:opacity-100 transition-opacity"
+          className="opacity-60 hover:opacity-100 transition-opacity -mt-1 -mr-1"
           onClick={handleClose}
         >
           <X size={16} />
@@ -51,14 +51,19 @@ const LiveEventAlert = ({ event, onClose }: LiveEventAlertProps) => {
       }
     >
       <AlertContent>
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex min-w-0 flex-col gap-0.5">
-            <AlertTitle className="text-sm font-medium">
-              Live in {timeUntil}
-            </AlertTitle>
-            <AlertDescription className="text-sm text-muted-foreground">
-              {formattedDate}
-            </AlertDescription>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-border">
+              <Radio className="opacity-80" size={16} strokeWidth={2} />
+            </span>
+            <div className="flex min-w-0 flex-col gap-0.5">
+              <AlertTitle className="text-sm font-medium text-foreground">
+                Live in {timeUntil}
+              </AlertTitle>
+              <AlertDescription className="text-sm text-muted-foreground">
+                {formattedDate}
+              </AlertDescription>
+            </div>
           </div>
           {event.registration_url && (
             <Button size="sm" asChild>
