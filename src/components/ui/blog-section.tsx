@@ -23,7 +23,7 @@ export function BlogSection({
   subtitle = "Discover the latest trends and insights in the world of civil services preparation."
 }: BlogSectionProps) {
   return (
-    <section className="py-16">
+    <section className="pt-4 pb-16">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
