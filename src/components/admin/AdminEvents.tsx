@@ -9,7 +9,47 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Pencil, Trash2, Loader2, Calendar } from 'lucide-react';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
+
+// IST offset is +5:30 (330 minutes)
+const IST_OFFSET_MINUTES = 330;
+
+// Convert UTC date to IST for display
+const utcToIST = (utcDateString: string): Date => {
+  const utcDate = new Date(utcDateString);
+  return new Date(utcDate.getTime() + IST_OFFSET_MINUTES * 60 * 1000);
+};
+
+// Convert IST datetime-local input to UTC for storage
+const istToUTC = (istLocalString: string): string => {
+  // istLocalString is in format "yyyy-MM-ddTHH:mm" and represents IST time
+  const [datePart, timePart] = istLocalString.split('T');
+  const [year, month, day] = datePart.split('-').map(Number);
+  const [hours, minutes] = timePart.split(':').map(Number);
+  
+  // Create date as if it's UTC, then subtract IST offset to get actual UTC
+  const istAsUtc = new Date(Date.UTC(year, month - 1, day, hours, minutes, 0, 0));
+  const utcDate = new Date(istAsUtc.getTime() - IST_OFFSET_MINUTES * 60 * 1000);
+  
+  return utcDate.toISOString();
+};
+
+// Format UTC date to IST datetime-local input format
+const formatToISTInput = (utcDateString: string): string => {
+  const istDate = utcToIST(utcDateString);
+  const year = istDate.getUTCFullYear();
+  const month = String(istDate.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(istDate.getUTCDate()).padStart(2, '0');
+  const hours = String(istDate.getUTCHours()).padStart(2, '0');
+  const mins = String(istDate.getUTCMinutes()).padStart(2, '0');
+  return `${year}-${month}-${day}T${hours}:${mins}`;
+};
+
+// Format UTC date to IST display string
+const formatISTDisplay = (utcDateString: string): string => {
+  const istDate = utcToIST(utcDateString);
+  return format(istDate, 'PPP p') + ' IST';
+};
 
 interface Event {
   id: string;
@@ -80,7 +120,7 @@ const AdminEvents = () => {
     setFormData({
       title: item.title,
       description: item.description || '',
-      event_date: item.event_date ? format(new Date(item.event_date), "yyyy-MM-dd'T'HH:mm") : '',
+      event_date: item.event_date ? formatToISTInput(item.event_date) : '',
       location: item.location || '',
       event_type: item.event_type || '',
       registration_url: item.registration_url || '',
@@ -94,10 +134,11 @@ const AdminEvents = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Convert IST input to UTC for storage
     const itemData = {
       title: formData.title,
       description: formData.description || null,
-      event_date: formData.event_date,
+      event_date: formData.event_date ? istToUTC(formData.event_date) : '',
       location: formData.location || null,
       event_type: formData.event_type || null,
       registration_url: formData.registration_url || null,
@@ -194,7 +235,7 @@ const AdminEvents = () => {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="event_date">Date & Time *</Label>
+                  <Label htmlFor="event_date">Date & Time (IST) *</Label>
                   <Input
                     id="event_date"
                     type="datetime-local"
@@ -280,7 +321,7 @@ const AdminEvents = () => {
                     <CardTitle className="text-lg">{item.title}</CardTitle>
                     <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
                       <Calendar className="h-3 w-3" />
-                      {format(new Date(item.event_date), 'PPP p')}
+                      {formatISTDisplay(item.event_date)}
                       {item.location && ` • ${item.location}`}
                       {' • '}{item.published ? '✅ Published' : '📝 Draft'}
                     </p>
