@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
-    <section className="py-12 md:py-20 animate-fade-in">
+    <section className="pt-4 md:pt-8 pb-12 md:pb-20 animate-fade-in">
       <div className="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-2xl overflow-hidden min-h-[500px] md:min-h-[600px]">
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"
