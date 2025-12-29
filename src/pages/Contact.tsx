@@ -58,7 +58,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-ring text-white placeholder:text-white/50"
+                    className="w-full px-4 py-3 rounded-lg border border-sky-300/30 bg-white backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-sky-400 text-black placeholder:text-gray-400"
                     placeholder="Your name"
                   />
                 </div>
@@ -73,7 +73,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-ring text-white placeholder:text-white/50"
+                    className="w-full px-4 py-3 rounded-lg border border-sky-300/30 bg-white backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-sky-400 text-black placeholder:text-gray-400"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -88,7 +88,7 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-ring text-white placeholder:text-white/50"
+                    className="w-full px-4 py-3 rounded-lg border border-sky-300/30 bg-white backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-sky-400 text-black placeholder:text-gray-400"
                     placeholder="What's this about?"
                   />
                 </div>
@@ -103,7 +103,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none text-white placeholder:text-white/50"
+                    className="w-full px-4 py-3 rounded-lg border border-sky-300/30 bg-white backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-sky-400 resize-none text-black placeholder:text-gray-400"
                     placeholder="Tell us what's on your mind..."
                   />
                 </div>
