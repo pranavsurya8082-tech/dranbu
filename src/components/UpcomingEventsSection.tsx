@@ -2,7 +2,8 @@ import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { format } from "date-fns";
+import { format, differenceInHours } from "date-fns";
+import LiveEventAlert from "@/components/LiveEventAlert";
 
 const UpcomingEventsSection = () => {
   const { data: events = [], isLoading } = useQuery({
@@ -19,6 +20,12 @@ const UpcomingEventsSection = () => {
       if (error) throw error;
       return data;
     },
+  });
+
+  // Find the next upcoming event within 48 hours for the live alert
+  const upcomingLiveEvent = events.find((event) => {
+    const hoursUntil = differenceInHours(new Date(event.event_date), new Date());
+    return hoursUntil > 0 && hoursUntil <= 48;
   });
 
   if (isLoading) {
@@ -47,6 +54,13 @@ const UpcomingEventsSection = () => {
         <p className="text-accent font-medium text-sm uppercase tracking-wider mb-4">Stay Updated</p>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Upcoming Events</h2>
       </div>
+
+      {/* Live Event Alert */}
+      {upcomingLiveEvent && (
+        <div className="mb-8 max-w-2xl mx-auto">
+          <LiveEventAlert event={upcomingLiveEvent} />
+        </div>
+      )}
 
       {isEmpty ? (
         <div className="text-center py-12 text-muted-foreground">
