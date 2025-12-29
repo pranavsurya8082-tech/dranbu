@@ -2,7 +2,7 @@ import { Instagram, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spotlight } from "@/components/ui/spotlight";
 import { motion } from "framer-motion";
-import drAnbuFull from "@/assets/dr-anbu-full.png";
+import drAnbuFull from "@/assets/dr-anbu-transparent.png";
 
 const HeroSection = () => {
   return (
