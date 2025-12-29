@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import UpcomingEventsSection from "@/components/UpcomingEventsSection";
 import ResourcesSection from "@/components/ResourcesSection";
+import { SplineSceneDemo } from "@/components/SplineSceneDemo";
 import { ArrowRight } from "lucide-react";
 
 const Index = () => {
@@ -13,6 +14,11 @@ const Index = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
         <HeroSection />
+
+        {/* Interactive 3D Section */}
+        <section className="my-16 animate-fade-in">
+          <SplineSceneDemo />
+        </section>
 
         {/* Testimonials Section */}
         <TestimonialsSection />
