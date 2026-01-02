@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Home } from "lucide-react";
 import worldMapImage from "@/assets/world-map.jpeg";
 
 interface Location {
@@ -107,7 +108,7 @@ const WorldMap = () => {
 
           {/* India marker (home base) */}
           <motion.div
-            className="absolute cursor-pointer"
+            className="absolute"
             style={{
               left: "68%",
               top: "52%",
@@ -117,21 +118,8 @@ const WorldMap = () => {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="relative">
-              {/* Outer ring */}
-              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                <div className="w-5 h-5 rounded-full bg-primary/40 flex items-center justify-center">
-                  <div className="w-3 h-3 rounded-full bg-primary" />
-                </div>
-              </div>
-              
-
-              {/* Home label */}
-              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
-                <span className="text-xs font-bold text-primary whitespace-nowrap bg-background/90 px-2 py-0.5 rounded shadow-sm">
-                  India
-                </span>
-              </div>
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-lg">
+              <Home className="w-4 h-4 text-primary-foreground" />
             </div>
           </motion.div>
         </div>
@@ -144,8 +132,10 @@ const WorldMap = () => {
           transition={{ duration: 0.5, delay: 2 }}
         >
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
-            <span className="font-medium">India (Home)</span>
+            <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center">
+              <Home className="w-2.5 h-2.5 text-primary-foreground" />
+            </div>
+            <span className="font-medium">Home</span>
           </div>
           <div className="flex items-center gap-1.5">
             <svg width="12" height="16" viewBox="0 0 24 32">
