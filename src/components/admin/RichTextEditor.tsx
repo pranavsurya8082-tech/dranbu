@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,6 +15,7 @@ interface RichTextEditorProps {
 
 const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) => {
   const editorRef = useRef<HTMLDivElement>(null);
+  const isInitialized = useRef(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [linkText, setLinkText] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -24,8 +25,30 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
   const [isUploading, setIsUploading] = useState(false);
   const { toast } = useToast();
 
-  const execCommand = useCallback((command: string, value?: string) => {
-    document.execCommand(command, false, value);
+  // Set initial content only once, or when value changes externally (e.g., editing a different article)
+  useEffect(() => {
+    if (editorRef.current) {
+      // Only update if the editor content differs from the value prop
+      // This prevents cursor jumping during typing
+      if (!isInitialized.current || editorRef.current.innerHTML !== value) {
+        editorRef.current.innerHTML = value;
+        isInitialized.current = true;
+      }
+    }
+  }, [value]);
+
+  // Reset initialization when component unmounts or value becomes empty (new article)
+  useEffect(() => {
+    if (!value) {
+      isInitialized.current = false;
+      if (editorRef.current) {
+        editorRef.current.innerHTML = '';
+      }
+    }
+  }, [value]);
+
+  const execCommand = useCallback((command: string, cmdValue?: string) => {
+    document.execCommand(command, false, cmdValue);
     editorRef.current?.focus();
     handleContentChange();
   }, []);
@@ -261,7 +284,6 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
         className="min-h-[200px] p-4 focus:outline-none prose prose-sm max-w-none [&_a]:text-primary [&_a]:underline [&_figure]:my-4 [&_img]:rounded-lg [&_img]:shadow-md [&_figcaption]:text-sm [&_figcaption]:text-center [&_figcaption]:text-muted-foreground [&_figcaption]:mt-2"
         onInput={handleContentChange}
         onPaste={handlePaste}
-        dangerouslySetInnerHTML={{ __html: value }}
         data-placeholder={placeholder}
         suppressContentEditableWarning
       />
