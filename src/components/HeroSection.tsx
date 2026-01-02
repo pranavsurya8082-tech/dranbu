@@ -10,25 +10,32 @@ const HeroSection = () => {
       
       {/* Aurora gradient background */}
       <div className="absolute inset-0 z-0">
-        {/* Main aurora gradient - light blue at top */}
+        {/* Main background - deep navy */}
         <div 
-          className="absolute top-0 left-0 right-0 h-[70%]"
+          className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse 80% 50% at 50% 0%, hsl(200 80% 50% / 0.4) 0%, hsl(210 70% 35% / 0.3) 30%, transparent 70%)",
+            background: "linear-gradient(180deg, hsl(220 60% 12%) 0%, hsl(225 50% 18%) 50%, hsl(230 45% 22%) 100%)",
           }}
         />
-        {/* Left light blue accent */}
+        {/* Left cyan/teal accent */}
         <div 
-          className="absolute top-0 left-0 w-[50%] h-[60%]"
+          className="absolute top-0 left-0 w-[60%] h-[80%]"
           style={{
-            background: "radial-gradient(ellipse 100% 100% at 0% 0%, hsl(195 70% 45% / 0.3) 0%, transparent 50%)",
+            background: "radial-gradient(ellipse 100% 100% at 0% 30%, hsl(190 70% 50% / 0.35) 0%, hsl(200 60% 40% / 0.2) 30%, transparent 60%)",
           }}
         />
-        {/* Right dark blue accent */}
+        {/* Right purple/violet accent */}
         <div 
-          className="absolute top-0 right-0 w-[50%] h-[60%]"
+          className="absolute top-0 right-0 w-[50%] h-[70%]"
           style={{
-            background: "radial-gradient(ellipse 100% 100% at 100% 20%, hsl(217 80% 30% / 0.35) 0%, transparent 50%)",
+            background: "radial-gradient(ellipse 100% 100% at 100% 40%, hsl(260 60% 45% / 0.4) 0%, hsl(270 50% 35% / 0.2) 30%, transparent 55%)",
+          }}
+        />
+        {/* Bottom center blue glow */}
+        <div 
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[60%]"
+          style={{
+            background: "radial-gradient(ellipse 100% 80% at 50% 100%, hsl(220 70% 45% / 0.3) 0%, transparent 60%)",
           }}
         />
       </div>
@@ -42,9 +49,9 @@ const HeroSection = () => {
         >
           <defs>
             <linearGradient id="gridGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="hsl(200 80% 55%)" stopOpacity="0.4" />
-              <stop offset="50%" stopColor="hsl(210 70% 45%)" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="hsl(217 80% 35%)" stopOpacity="0.15" />
+              <stop offset="0%" stopColor="hsl(190 70% 55%)" stopOpacity="0.35" />
+              <stop offset="50%" stopColor="hsl(230 60% 50%)" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="hsl(260 50% 45%)" stopOpacity="0.2" />
             </linearGradient>
           </defs>
           {/* Perspective grid lines - horizontal */}
