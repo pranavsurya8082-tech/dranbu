@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Bold, Italic, Link, Image, Heading1, Heading2, List, ListOrdered, Loader2 } from 'lucide-react';
+import { Bold, Italic, Link, Image, Heading1, Heading2, List, ListOrdered, Loader2, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -20,6 +20,8 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
   const [linkText, setLinkText] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [imageAlt, setImageAlt] = useState('');
+  const [imageAlign, setImageAlign] = useState<'left' | 'center' | 'right'>('center');
+  const [imageSize, setImageSize] = useState<'small' | 'medium' | 'large' | 'full'>('full');
   const [isLinkOpen, setIsLinkOpen] = useState(false);
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -70,17 +72,36 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
     }
   };
 
-  const insertImageHtml = (url: string, alt: string = '') => {
-    const img = `<figure class="my-4"><img src="${url}" alt="${alt || 'Article image'}" class="w-full rounded-lg shadow-md" />${alt ? `<figcaption class="text-sm text-center text-muted-foreground mt-2">${alt}</figcaption>` : ''}</figure>`;
+  const getImageClasses = (size: string, align: string) => {
+    const sizeClasses = {
+      small: 'max-w-[200px]',
+      medium: 'max-w-[400px]',
+      large: 'max-w-[600px]',
+      full: 'w-full',
+    };
+    const alignClasses = {
+      left: 'mr-auto ml-0',
+      center: 'mx-auto',
+      right: 'ml-auto mr-0',
+    };
+    return `${sizeClasses[size as keyof typeof sizeClasses]} ${alignClasses[align as keyof typeof alignClasses]}`;
+  };
+
+  const insertImageHtml = (url: string, alt: string = '', size: string = 'full', align: string = 'center') => {
+    const imgClasses = getImageClasses(size, align);
+    const figureAlign = align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center';
+    const img = `<figure class="my-4 ${figureAlign}"><img src="${url}" alt="${alt || 'Article image'}" class="${imgClasses} rounded-lg shadow-md" style="display: block;" />${alt ? `<figcaption class="text-sm text-muted-foreground mt-2">${alt}</figcaption>` : ''}</figure>`;
     document.execCommand('insertHTML', false, img);
     handleContentChange();
   };
 
   const insertImage = () => {
     if (imageUrl) {
-      insertImageHtml(imageUrl, imageAlt);
+      insertImageHtml(imageUrl, imageAlt, imageSize, imageAlign);
       setImageUrl('');
       setImageAlt('');
+      setImageSize('full');
+      setImageAlign('center');
       setIsImageOpen(false);
     }
   };
@@ -262,6 +283,60 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
                   placeholder="Image description"
                 />
               </div>
+              
+              {/* Image Size */}
+              <div className="space-y-1">
+                <Label className="text-sm">Size</Label>
+                <div className="flex gap-1">
+                  {(['small', 'medium', 'large', 'full'] as const).map((size) => (
+                    <Button
+                      key={size}
+                      type="button"
+                      variant={imageSize === size ? 'default' : 'outline'}
+                      size="sm"
+                      className="flex-1 text-xs capitalize"
+                      onClick={() => setImageSize(size)}
+                    >
+                      {size}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Image Alignment */}
+              <div className="space-y-1">
+                <Label className="text-sm">Alignment</Label>
+                <div className="flex gap-1">
+                  <Button
+                    type="button"
+                    variant={imageAlign === 'left' ? 'default' : 'outline'}
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => setImageAlign('left')}
+                  >
+                    <AlignLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={imageAlign === 'center' ? 'default' : 'outline'}
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => setImageAlign('center')}
+                  >
+                    <AlignCenter className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={imageAlign === 'right' ? 'default' : 'outline'}
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => setImageAlign('right')}
+                  >
+                    <AlignRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+              
               <Button type="button" size="sm" onClick={insertImage} className="w-full">
                 Insert Image
               </Button>
