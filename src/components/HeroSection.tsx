@@ -10,25 +10,25 @@ const HeroSection = () => {
       
       {/* Aurora gradient background */}
       <div className="absolute inset-0 z-0">
-        {/* Main aurora gradient - blue/purple at top */}
+        {/* Main aurora gradient - light blue at top */}
         <div 
           className="absolute top-0 left-0 right-0 h-[70%]"
           style={{
-            background: "radial-gradient(ellipse 80% 50% at 50% 0%, hsl(217 80% 30% / 0.5) 0%, hsl(240 70% 25% / 0.3) 30%, transparent 70%)",
+            background: "radial-gradient(ellipse 80% 50% at 50% 0%, hsl(200 80% 50% / 0.4) 0%, hsl(210 70% 35% / 0.3) 30%, transparent 70%)",
           }}
         />
-        {/* Left purple accent */}
+        {/* Left light blue accent */}
         <div 
           className="absolute top-0 left-0 w-[50%] h-[60%]"
           style={{
-            background: "radial-gradient(ellipse 100% 100% at 0% 0%, hsl(270 60% 35% / 0.3) 0%, transparent 50%)",
+            background: "radial-gradient(ellipse 100% 100% at 0% 0%, hsl(195 70% 45% / 0.3) 0%, transparent 50%)",
           }}
         />
-        {/* Right blue accent */}
+        {/* Right dark blue accent */}
         <div 
           className="absolute top-0 right-0 w-[50%] h-[60%]"
           style={{
-            background: "radial-gradient(ellipse 100% 100% at 100% 20%, hsl(200 70% 35% / 0.25) 0%, transparent 50%)",
+            background: "radial-gradient(ellipse 100% 100% at 100% 20%, hsl(217 80% 30% / 0.35) 0%, transparent 50%)",
           }}
         />
       </div>
@@ -42,9 +42,9 @@ const HeroSection = () => {
         >
           <defs>
             <linearGradient id="gridGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="hsl(217 70% 50%)" stopOpacity="0.3" />
-              <stop offset="50%" stopColor="hsl(270 60% 50%)" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="hsl(200 70% 50%)" stopOpacity="0.1" />
+              <stop offset="0%" stopColor="hsl(200 80% 55%)" stopOpacity="0.4" />
+              <stop offset="50%" stopColor="hsl(210 70% 45%)" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="hsl(217 80% 35%)" stopOpacity="0.15" />
             </linearGradient>
           </defs>
           {/* Perspective grid lines - horizontal */}
