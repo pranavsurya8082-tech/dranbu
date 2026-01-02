@@ -1,8 +1,6 @@
 import { Instagram, Linkedin, Twitter } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import AnimatedShaderBackground from "@/components/ui/animated-shader-background";
 import { motion } from "framer-motion";
-import drAnbuFull from "@/assets/dr-anbu-transparent.png";
 
 const HeroSection = () => {
   return (
@@ -14,9 +12,9 @@ const HeroSection = () => {
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 via-blue-950/30 to-slate-900/50 z-[1]" />
         
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[500px] md:min-h-[600px] relative z-[2]">
-          {/* Left Column - Content */}
-          <div className="space-y-6 p-8 md:p-12 flex flex-col justify-center relative z-10">
+        <div className="flex items-center justify-center min-h-[500px] md:min-h-[600px] relative z-[2]">
+          {/* Content */}
+          <div className="space-y-6 p-8 md:p-12 flex flex-col justify-center items-center text-center relative z-10 max-w-3xl">
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -40,7 +38,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="flex items-center gap-3 pt-4"
+              className="flex items-center justify-center gap-3 pt-4"
             >
               <a
                 href="https://www.instagram.com/dranbuarumugam"
@@ -69,25 +67,6 @@ const HeroSection = () => {
               >
                 <Linkedin className="w-5 h-5" />
               </a>
-            </motion.div>
-          </div>
-
-          {/* Right Column - Person Image */}
-          <div className="relative h-full flex items-center justify-center overflow-hidden py-8">
-            <motion.div
-              className="relative z-10"
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <img
-                src={drAnbuFull}
-                alt="Dr Anbu Arumugam"
-                className="relative z-10 h-[350px] md:h-[500px] w-auto object-contain"
-                style={{
-                  filter: "drop-shadow(0 0 30px rgba(59, 130, 246, 0.3))",
-                }}
-              />
             </motion.div>
           </div>
         </div>
