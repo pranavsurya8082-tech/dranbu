@@ -3,13 +3,13 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
+import RichTextEditor from './RichTextEditor';
 
 interface Article {
   id: string;
@@ -214,12 +214,14 @@ const AdminArticles = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="content">Content</Label>
-                <Textarea
-                  id="content"
+                <Label>Content</Label>
+                <p className="text-xs text-muted-foreground">
+                  Use the toolbar to add hyperlinks and insert images between paragraphs
+                </p>
+                <RichTextEditor
                   value={formData.content}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  rows={6}
+                  onChange={(content) => setFormData({ ...formData, content })}
+                  placeholder="Write your article content here..."
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
