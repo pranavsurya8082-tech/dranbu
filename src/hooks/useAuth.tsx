@@ -69,7 +69,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    
+    // Immediately check admin status after successful sign in
+    if (data?.user && !error) {
+      const isUserAdmin = await checkAdminRole(data.user.id);
+      setIsAdmin(isUserAdmin);
+    }
+    
     return { error };
   };
 
