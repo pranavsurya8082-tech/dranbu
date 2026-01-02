@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
@@ -36,7 +36,7 @@ const AdminArticles = () => {
   const [formData, setFormData] = useState({
     title: '',
     subtitle: '',
-    category: 'wellness',
+    category: '',
     content: '',
     image_url: '',
     author_name: 'Dr. Anbu',
@@ -45,7 +45,7 @@ const AdminArticles = () => {
     published: false,
   });
 
-  const categories = ['wellness', 'travel', 'creativity', 'growth'];
+  
 
   const fetchArticles = async () => {
     const { data, error } = await supabase
@@ -193,16 +193,13 @@ const AdminArticles = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="category">Category *</Label>
-                  <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map((cat) => (
-                        <SelectItem key={cat} value={cat} className="capitalize">{cat}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Input
+                    id="category"
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    placeholder="e.g., wellness, travel, growth"
+                    required
+                  />
                 </div>
               </div>
               <div className="space-y-2">
