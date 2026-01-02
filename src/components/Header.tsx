@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, Settings } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, Settings, LogIn, LogOut, UserPlus } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAdmin } = useAuth();
+  const { isAdmin, user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   return (
     <header className="sticky top-0 z-50 py-2 sm:py-4">
@@ -56,9 +63,51 @@ const Header = () => {
                 Admin
               </Link>
             )}
+            
+            {/* Auth buttons - Desktop */}
+            {user ? (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleSignOut}
+                className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all flex items-center gap-1.5"
+              >
+                <LogOut className="h-4 w-4" />
+                Sign Out
+              </Button>
+            ) : (
+              <Link
+                to="/auth"
+                className="text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-4 py-2 transition-all flex items-center gap-1.5"
+              >
+                <LogIn className="h-4 w-4" />
+                Sign In
+              </Link>
+            )}
           </nav>
 
           <div className="flex items-center gap-1">
+            {/* Mobile: Auth button */}
+            {user ? (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleSignOut}
+                className="md:hidden p-1.5 sm:p-2 rounded-lg hover:bg-muted/60 transition-colors"
+                aria-label="Sign out"
+              >
+                <LogOut className="h-5 w-5 sm:h-6 sm:w-6" />
+              </Button>
+            ) : (
+              <Link
+                to="/auth"
+                className="md:hidden p-1.5 sm:p-2 rounded-lg hover:bg-muted/60 transition-colors"
+                aria-label="Sign in"
+              >
+                <LogIn className="h-5 w-5 sm:h-6 sm:w-6" />
+              </Link>
+            )}
+
             {/* Mobile: direct Admin button (so it doesn't get missed behind the menu) */}
             {isAdmin && (
               <Link
@@ -109,6 +158,28 @@ const Header = () => {
                   <Settings className="h-4 w-4" />
                   Admin
                 </Link>
+              )}
+              
+              {/* Auth links - Mobile menu */}
+              {user ? (
+                <button
+                  onClick={handleSignOut}
+                  className="text-sm font-medium hover:text-accent transition-colors flex items-center gap-1.5 text-left"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Sign Out
+                </button>
+              ) : (
+                <>
+                  <Link to="/auth" className="text-sm font-medium hover:text-accent transition-colors flex items-center gap-1.5">
+                    <LogIn className="h-4 w-4" />
+                    Sign In
+                  </Link>
+                  <Link to="/auth" className="text-sm font-medium hover:text-accent transition-colors flex items-center gap-1.5">
+                    <UserPlus className="h-4 w-4" />
+                    Create Account
+                  </Link>
+                </>
               )}
             </nav>
           </div>
