@@ -5,12 +5,9 @@ import Header from '@/components/Header';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Loader2, FileText, MessageSquare, Calendar, BookOpen, User, LogOut } from 'lucide-react';
+import { Loader2, FileText, Calendar, LogOut } from 'lucide-react';
 import AdminArticles from '@/components/admin/AdminArticles';
-import AdminTestimonials from '@/components/admin/AdminTestimonials';
 import AdminEvents from '@/components/admin/AdminEvents';
-import AdminResources from '@/components/admin/AdminResources';
-import AdminSettings from '@/components/admin/AdminSettings';
 
 const Admin = () => {
   const { user, isAdmin, isLoading, signOut } = useAuth();
@@ -87,26 +84,14 @@ const Admin = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 h-auto gap-2 bg-muted/50 p-2">
+          <TabsList className="grid w-full grid-cols-2 h-auto gap-2 bg-muted/50 p-2">
             <TabsTrigger value="articles" className="flex items-center gap-2 py-3">
               <FileText className="h-4 w-4" />
               <span className="hidden sm:inline">Articles</span>
             </TabsTrigger>
-            <TabsTrigger value="testimonials" className="flex items-center gap-2 py-3">
-              <MessageSquare className="h-4 w-4" />
-              <span className="hidden sm:inline">Testimonials</span>
-            </TabsTrigger>
             <TabsTrigger value="events" className="flex items-center gap-2 py-3">
               <Calendar className="h-4 w-4" />
               <span className="hidden sm:inline">Events</span>
-            </TabsTrigger>
-            <TabsTrigger value="resources" className="flex items-center gap-2 py-3">
-              <BookOpen className="h-4 w-4" />
-              <span className="hidden sm:inline">Resources</span>
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2 py-3 col-span-2 sm:col-span-1">
-              <User className="h-4 w-4" />
-              <span className="hidden sm:inline">Settings</span>
             </TabsTrigger>
           </TabsList>
 
@@ -114,20 +99,8 @@ const Admin = () => {
             <AdminArticles />
           </TabsContent>
 
-          <TabsContent value="testimonials" className="animate-fade-in">
-            <AdminTestimonials />
-          </TabsContent>
-
           <TabsContent value="events" className="animate-fade-in">
             <AdminEvents />
-          </TabsContent>
-
-          <TabsContent value="resources" className="animate-fade-in">
-            <AdminResources />
-          </TabsContent>
-
-          <TabsContent value="settings" className="animate-fade-in">
-            <AdminSettings />
           </TabsContent>
         </Tabs>
       </main>
