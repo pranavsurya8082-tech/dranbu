@@ -3,7 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Bold, Italic, Link, Image, Heading1, Heading2, List, ListOrdered } from 'lucide-react';
+import { Bold, Italic, Link, Image, Heading1, Heading2, List, ListOrdered, Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface RichTextEditorProps {
   value: string;
@@ -19,6 +21,8 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
   const [imageAlt, setImageAlt] = useState('');
   const [isLinkOpen, setIsLinkOpen] = useState(false);
   const [isImageOpen, setIsImageOpen] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const { toast } = useToast();
 
   const execCommand = useCallback((command: string, value?: string) => {
     document.execCommand(command, false, value);
@@ -43,18 +47,69 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
     }
   };
 
+  const insertImageHtml = (url: string, alt: string = '') => {
+    const img = `<figure class="my-4"><img src="${url}" alt="${alt || 'Article image'}" class="w-full rounded-lg shadow-md" />${alt ? `<figcaption class="text-sm text-center text-muted-foreground mt-2">${alt}</figcaption>` : ''}</figure>`;
+    document.execCommand('insertHTML', false, img);
+    handleContentChange();
+  };
+
   const insertImage = () => {
     if (imageUrl) {
-      const img = `<figure class="my-4"><img src="${imageUrl}" alt="${imageAlt || 'Article image'}" class="w-full rounded-lg shadow-md" />${imageAlt ? `<figcaption class="text-sm text-center text-muted-foreground mt-2">${imageAlt}</figcaption>` : ''}</figure>`;
-      document.execCommand('insertHTML', false, img);
-      handleContentChange();
+      insertImageHtml(imageUrl, imageAlt);
       setImageUrl('');
       setImageAlt('');
       setIsImageOpen(false);
     }
   };
 
-  const handlePaste = (e: React.ClipboardEvent) => {
+  const uploadImage = async (file: File): Promise<string | null> => {
+    const fileExt = file.name.split('.').pop() || 'png';
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+    const filePath = `articles/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('article-images')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      console.error('Upload error:', uploadError);
+      return null;
+    }
+
+    const { data } = supabase.storage
+      .from('article-images')
+      .getPublicUrl(filePath);
+
+    return data.publicUrl;
+  };
+
+  const handlePaste = async (e: React.ClipboardEvent) => {
+    const items = e.clipboardData.items;
+    
+    // Check for images in clipboard
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item.type.startsWith('image/')) {
+        e.preventDefault();
+        const file = item.getAsFile();
+        if (file) {
+          setIsUploading(true);
+          toast({ title: 'Uploading image...', description: 'Please wait' });
+          
+          const url = await uploadImage(file);
+          if (url) {
+            insertImageHtml(url, '');
+            toast({ title: 'Image uploaded!', description: 'Image added to your article' });
+          } else {
+            toast({ title: 'Upload failed', description: 'Could not upload image', variant: 'destructive' });
+          }
+          setIsUploading(false);
+        }
+        return;
+      }
+    }
+
+    // Handle plain text paste
     e.preventDefault();
     const text = e.clipboardData.getData('text/plain');
     document.execCommand('insertText', false, text);
@@ -163,6 +218,9 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
           </PopoverTrigger>
           <PopoverContent className="w-80" align="start">
             <div className="space-y-3">
+              <p className="text-xs text-muted-foreground">
+                Tip: You can also copy-paste images directly into the editor!
+              </p>
               <div className="space-y-1">
                 <Label htmlFor="imageUrl" className="text-sm">Image URL</Label>
                 <Input
@@ -187,6 +245,13 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
             </div>
           </PopoverContent>
         </Popover>
+
+        {isUploading && (
+          <div className="flex items-center gap-2 ml-2 text-sm text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Uploading...
+          </div>
+        )}
       </div>
 
       {/* Editor */}
