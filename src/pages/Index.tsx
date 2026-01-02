@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import StatsSection from "@/components/StatsSection";
@@ -9,10 +8,8 @@ import ContactCTASection from "@/components/ContactCTASection";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background animate-fade-in">
-      <Header />
-      
       <main>
-        {/* Hero Section - Full width dark with aurora */}
+        {/* Hero Section - Full width dark with integrated header */}
         <HeroSection />
 
         {/* About Section - White background with large typography */}
