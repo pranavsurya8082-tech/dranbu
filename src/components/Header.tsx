@@ -56,13 +56,6 @@ const Header = ({ variant = "solid" }: HeaderProps) => {
             >
               Contact
             </Link>
-            <span className={`text-xs ${isTransparent ? 'text-white/30' : 'text-muted-foreground/30'}`}>•</span>
-            <Link
-              to="/about"
-              className={`text-sm font-medium px-4 py-2 transition-colors ${isTransparent ? 'text-white/70 hover:text-white' : 'text-muted-foreground hover:text-foreground'}`}
-            >
-              Services
-            </Link>
             {isAdmin && (
               <>
                 <span className={`text-xs ${isTransparent ? 'text-white/30' : 'text-muted-foreground/30'}`}>•</span>
