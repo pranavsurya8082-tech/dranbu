@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import WorldMap from "@/components/WorldMap";
 import { GraduationCap, Award, BookOpen, Globe, Users, Building } from "lucide-react";
 
 const About = () => {
@@ -86,15 +87,9 @@ const About = () => {
             International Experience
           </h2>
           <p className="text-muted-foreground mb-6">
-            Dr. Arumugam has been invited to present her research in multiple countries including:
+            Dr. Arumugam has been invited to present her research across the globe:
           </p>
-          <div className="flex flex-wrap gap-3">
-            {["USA", "Portugal", "Netherlands", "Sri Lanka", "Malaysia", "China", "Singapore", "Bangladesh"].map((country) => (
-              <span key={country} className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                {country}
-              </span>
-            ))}
-          </div>
+          <WorldMap />
         </section>
 
         {/* ASPA Contributions */}
