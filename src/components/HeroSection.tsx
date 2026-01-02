@@ -33,11 +33,26 @@ const HeroSection = () => {
               Assistant Professor & Head, Department of Public Administration at Government Arts College, Chennai. With 18+ years of experience in teaching, research, and administration, specializing in gender equality, social equity, and sustainable development.
             </motion.p>
 
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+            >
+              <a
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-full transition-all hover:scale-105"
+              >
+                Free Consultation
+                <span aria-hidden="true">→</span>
+              </a>
+            </motion.div>
+
             {/* Social Links */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
               className="flex items-center justify-center gap-3 pt-4"
             >
               <a
