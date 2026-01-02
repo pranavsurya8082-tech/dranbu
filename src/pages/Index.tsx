@@ -1,34 +1,39 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import ArticlesSection from "@/components/ArticlesSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import UpcomingEventsSection from "@/components/UpcomingEventsSection";
-import ResourcesSection from "@/components/ResourcesSection";
+import AboutSection from "@/components/AboutSection";
+import StatsSection from "@/components/StatsSection";
+import FeaturedWorkSection from "@/components/FeaturedWorkSection";
+import ServicesGrid from "@/components/ServicesGrid";
+import ContactCTASection from "@/components/ContactCTASection";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background animate-fade-in">
       <Header />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-8">
-        {/* Hero Section */}
+      <main>
+        {/* Hero Section - Full width dark with aurora */}
         <HeroSection />
 
-        {/* Articles Section */}
-        <ArticlesSection />
+        {/* About Section - White background with large typography */}
+        <AboutSection />
 
-        {/* Testimonials Section */}
-        <TestimonialsSection />
+        {/* Stats Section - Horizontal metrics bar */}
+        <StatsSection />
 
-        {/* Upcoming Events Section */}
-        <UpcomingEventsSection />
+        {/* Featured Work Section - Dark showcase sections */}
+        <FeaturedWorkSection />
 
-        <ResourcesSection />
+        {/* Services Grid - Clean grid of services */}
+        <ServicesGrid />
+
+        {/* Contact CTA Section - Bottom call to action */}
+        <ContactCTASection />
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <footer className="border-t border-border">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-8">
             <div>
               <h3 className="font-semibold mb-4">Quick Links</h3>
