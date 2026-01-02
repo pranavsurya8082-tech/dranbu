@@ -85,18 +85,6 @@ const WorldMap = () => {
                   <circle cx="12" cy="12" r="5" fill="white" />
                 </svg>
 
-                {/* Pulse effect */}
-                <motion.div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full border-2 border-primary"
-                  initial={{ scale: 1, opacity: 0.8 }}
-                  animate={{ scale: 2.5, opacity: 0 }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.3,
-                    ease: "easeOut",
-                  }}
-                />
               </motion.div>
 
               {/* Label tooltip */}
@@ -137,28 +125,6 @@ const WorldMap = () => {
                 </div>
               </div>
               
-              {/* Animated pulse rings */}
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-primary"
-                initial={{ scale: 1, opacity: 0.8 }}
-                animate={{ scale: 2.5, opacity: 0 }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeOut",
-                }}
-              />
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-primary"
-                initial={{ scale: 1, opacity: 0.8 }}
-                animate={{ scale: 2.5, opacity: 0 }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: 1,
-                  ease: "easeOut",
-                }}
-              />
 
               {/* Home label */}
               <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
