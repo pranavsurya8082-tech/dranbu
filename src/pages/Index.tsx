@@ -4,7 +4,6 @@ import ArticlesSection from "@/components/ArticlesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import UpcomingEventsSection from "@/components/UpcomingEventsSection";
 import ResourcesSection from "@/components/ResourcesSection";
-import ConsultationSection from "@/components/ConsultationSection";
 
 const Index = () => {
   return (
@@ -24,11 +23,7 @@ const Index = () => {
         {/* Upcoming Events Section */}
         <UpcomingEventsSection />
 
-        {/* Resources Section */}
         <ResourcesSection />
-
-        {/* Consultation CTA Section with Pulse Beams */}
-        <ConsultationSection />
       </main>
 
       {/* Footer */}
