@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Bold, Italic, Link, Image, Heading1, Heading2, List, ListOrdered, Loader2, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
+import { Bold, Italic, Link, Image, Heading1, Heading2, List, ListOrdered, Loader2, AlignLeft, AlignCenter, AlignRight, Trash2, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -25,6 +25,9 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
   const [isLinkOpen, setIsLinkOpen] = useState(false);
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<HTMLImageElement | null>(null);
+  const [editImageAlign, setEditImageAlign] = useState<'left' | 'center' | 'right'>('center');
+  const [editImageSize, setEditImageSize] = useState<'small' | 'medium' | 'large' | 'full'>('full');
   const { toast } = useToast();
 
   // Set initial content only once, or when value changes externally (e.g., editing a different article)
@@ -104,6 +107,63 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
       setImageAlign('center');
       setIsImageOpen(false);
     }
+  };
+
+  // Handle clicking on images to select them for editing
+  const handleEditorClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'IMG') {
+      e.preventDefault();
+      const img = target as HTMLImageElement;
+      setSelectedImage(img);
+      
+      // Detect current size
+      if (img.classList.contains('max-w-[200px]')) setEditImageSize('small');
+      else if (img.classList.contains('max-w-[400px]')) setEditImageSize('medium');
+      else if (img.classList.contains('max-w-[600px]')) setEditImageSize('large');
+      else setEditImageSize('full');
+      
+      // Detect current alignment
+      if (img.classList.contains('ml-0')) setEditImageAlign('left');
+      else if (img.classList.contains('mr-0')) setEditImageAlign('right');
+      else setEditImageAlign('center');
+    } else {
+      setSelectedImage(null);
+    }
+  };
+
+  const updateSelectedImage = () => {
+    if (!selectedImage) return;
+    
+    const figure = selectedImage.closest('figure');
+    const newClasses = getImageClasses(editImageSize, editImageAlign);
+    const figureAlign = editImageAlign === 'left' ? 'text-left' : editImageAlign === 'right' ? 'text-right' : 'text-center';
+    
+    // Update image classes
+    selectedImage.className = `${newClasses} rounded-lg shadow-md`;
+    selectedImage.style.display = 'block';
+    
+    // Update figure alignment
+    if (figure) {
+      figure.className = `my-4 ${figureAlign}`;
+    }
+    
+    handleContentChange();
+    setSelectedImage(null);
+  };
+
+  const deleteSelectedImage = () => {
+    if (!selectedImage) return;
+    
+    const figure = selectedImage.closest('figure');
+    if (figure) {
+      figure.remove();
+    } else {
+      selectedImage.remove();
+    }
+    
+    handleContentChange();
+    setSelectedImage(null);
   };
 
   const uploadImage = async (file: File): Promise<string | null> => {
@@ -356,12 +416,93 @@ const RichTextEditor = ({ value, onChange, placeholder }: RichTextEditorProps) =
       <div
         ref={editorRef}
         contentEditable
-        className="min-h-[200px] p-4 focus:outline-none prose prose-sm max-w-none [&_a]:text-primary [&_a]:underline [&_figure]:my-4 [&_img]:rounded-lg [&_img]:shadow-md [&_figcaption]:text-sm [&_figcaption]:text-center [&_figcaption]:text-muted-foreground [&_figcaption]:mt-2"
+        className="min-h-[200px] p-4 focus:outline-none prose prose-sm max-w-none [&_a]:text-primary [&_a]:underline [&_figure]:my-4 [&_img]:rounded-lg [&_img]:shadow-md [&_img]:cursor-pointer [&_figcaption]:text-sm [&_figcaption]:text-center [&_figcaption]:text-muted-foreground [&_figcaption]:mt-2"
         onInput={handleContentChange}
         onPaste={handlePaste}
+        onClick={handleEditorClick}
         data-placeholder={placeholder}
         suppressContentEditableWarning
       />
+
+      {/* Image Edit Toolbar */}
+      {selectedImage && (
+        <div className="border-t p-3 bg-muted/30 space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium">Edit Image</span>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+          
+          {/* Size */}
+          <div className="space-y-1">
+            <Label className="text-sm">Size</Label>
+            <div className="flex gap-1">
+              {(['small', 'medium', 'large', 'full'] as const).map((size) => (
+                <Button
+                  key={size}
+                  type="button"
+                  variant={editImageSize === size ? 'default' : 'outline'}
+                  size="sm"
+                  className="flex-1 text-xs capitalize"
+                  onClick={() => setEditImageSize(size)}
+                >
+                  {size}
+                </Button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Alignment */}
+          <div className="space-y-1">
+            <Label className="text-sm">Alignment</Label>
+            <div className="flex gap-1">
+              <Button
+                type="button"
+                variant={editImageAlign === 'left' ? 'default' : 'outline'}
+                size="sm"
+                className="flex-1"
+                onClick={() => setEditImageAlign('left')}
+              >
+                <AlignLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                type="button"
+                variant={editImageAlign === 'center' ? 'default' : 'outline'}
+                size="sm"
+                className="flex-1"
+                onClick={() => setEditImageAlign('center')}
+              >
+                <AlignCenter className="h-4 w-4" />
+              </Button>
+              <Button
+                type="button"
+                variant={editImageAlign === 'right' ? 'default' : 'outline'}
+                size="sm"
+                className="flex-1"
+                onClick={() => setEditImageAlign('right')}
+              >
+                <AlignRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+          
+          {/* Actions */}
+          <div className="flex gap-2">
+            <Button type="button" size="sm" onClick={updateSelectedImage} className="flex-1">
+              Apply Changes
+            </Button>
+            <Button type="button" variant="destructive" size="sm" onClick={deleteSelectedImage}>
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      )}
 
       <style>{`
         [contenteditable]:empty:before {
