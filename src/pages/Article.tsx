@@ -1,20 +1,62 @@
+import { useState, useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import Header from "@/components/Header";
-import ArticleCard from "@/components/ArticleCard";
-import { getArticleById, getRelatedArticles } from "@/data/articles";
+import { supabase } from "@/integrations/supabase/client";
 import { Facebook, Twitter, Linkedin, Link2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { format } from "date-fns";
 
-const Article = () => {
+interface Article {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  content: string | null;
+  category: string;
+  image_url: string | null;
+  author_name: string | null;
+  author_avatar: string | null;
+  author_bio: string | null;
+  read_time: string | null;
+  tags: string[] | null;
+  created_at: string;
+  published: boolean | null;
+}
+
+const ArticlePage = () => {
   const { id } = useParams<{ id: string }>();
-  const article = id ? getArticleById(id) : undefined;
-  
-  if (!article) {
-    return <Navigate to="/404" replace />;
-  }
+  const [article, setArticle] = useState<Article | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  const relatedArticles = getRelatedArticles(article.id);
+  useEffect(() => {
+    const fetchArticle = async () => {
+      if (!id) {
+        setNotFound(true);
+        setIsLoading(false);
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("articles")
+        .select("*")
+        .eq("id", id)
+        .eq("published", true)
+        .maybeSingle();
+
+      if (error) {
+        console.error("Error fetching article:", error);
+        setNotFound(true);
+      } else if (!data) {
+        setNotFound(true);
+      } else {
+        setArticle(data);
+      }
+      setIsLoading(false);
+    };
+
+    fetchArticle();
+  }, [id]);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -23,15 +65,28 @@ const Article = () => {
 
   const getCategoryClass = (cat: string) => {
     const normalized = cat.toLowerCase();
-    if (normalized.includes("financ")) return "tag-financing";
-    if (normalized.includes("lifestyle")) return "tag-lifestyle";
-    if (normalized.includes("community")) return "tag-community";
-    if (normalized.includes("wellness")) return "tag-wellness";
-    if (normalized.includes("travel")) return "tag-travel";
-    if (normalized.includes("creativ")) return "tag-creativity";
-    if (normalized.includes("growth")) return "tag-growth";
-    return "tag-lifestyle";
+    if (normalized.includes("financ")) return "bg-emerald-500/20 text-emerald-400";
+    if (normalized.includes("lifestyle")) return "bg-pink-500/20 text-pink-400";
+    if (normalized.includes("upsc")) return "bg-blue-500/20 text-blue-400";
+    if (normalized.includes("admin")) return "bg-purple-500/20 text-purple-400";
+    return "bg-primary/20 text-primary";
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Loading article...</p>
+      </div>
+    );
+  }
+
+  if (notFound) {
+    return <Navigate to="/404" replace />;
+  }
+
+  if (!article) {
+    return <Navigate to="/404" replace />;
+  }
 
   return (
     <div className="min-h-screen bg-background animate-fade-in">
@@ -41,7 +96,7 @@ const Article = () => {
         {/* Back Navigation */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <a
-            href="/"
+            href="/articles"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -50,46 +105,56 @@ const Article = () => {
         </div>
 
         {/* Hero Image */}
-        <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] mb-12">
-          <img
-            src={article.image}
-            alt={article.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-        </div>
+        {article.image_url && (
+          <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] mb-12">
+            <img
+              src={article.image_url}
+              alt={article.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+          </div>
+        )}
 
-        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
+        <article className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 ${article.image_url ? '-mt-32' : 'mt-4'} relative z-10`}>
           {/* Article Header */}
           <div className="mb-12 animate-slide-up">
             <div className="flex items-center gap-3 mb-6">
               <span className={`px-4 py-2 rounded-full text-sm font-medium ${getCategoryClass(article.category)}`}>
                 {article.category}
               </span>
-              <span className="text-sm text-muted-foreground">{article.date}</span>
+              <span className="text-sm text-muted-foreground">
+                {format(new Date(article.created_at), "MMM d, yyyy")}
+              </span>
               <span className="text-sm text-muted-foreground">•</span>
-              <span className="text-sm text-muted-foreground">{article.readTime} read</span>
+              <span className="text-sm text-muted-foreground">{article.read_time || "5 min"} read</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
               {article.title}
             </h1>
             
-            <p className="text-xl text-muted-foreground mb-8">
-              {article.subtitle}
-            </p>
+            {article.subtitle && (
+              <p className="text-xl text-muted-foreground mb-8">
+                {article.subtitle}
+              </p>
+            )}
 
             {/* Author Info */}
             <div className="flex items-center justify-between border-t border-b border-border py-6">
               <div className="flex items-center gap-4">
-                <img
-                  src={article.author.avatar}
-                  alt={article.author.name}
-                  className="w-14 h-14 rounded-full object-cover"
-                />
+                {article.author_avatar && (
+                  <img
+                    src={article.author_avatar}
+                    alt={article.author_name || "Author"}
+                    className="w-14 h-14 rounded-full object-cover"
+                  />
+                )}
                 <div>
-                  <p className="font-semibold">{article.author.name}</p>
-                  <p className="text-sm text-muted-foreground">{article.author.bio}</p>
+                  <p className="font-semibold">{article.author_name || "Dr. Anbu"}</p>
+                  {article.author_bio && (
+                    <p className="text-sm text-muted-foreground">{article.author_bio}</p>
+                  )}
                 </div>
               </div>
 
@@ -134,40 +199,30 @@ const Article = () => {
           </div>
 
           {/* Article Content */}
-          <div className="prose prose-lg max-w-none mb-16 animate-slide-up stagger-2">
-            <p className="text-lg leading-relaxed text-muted-foreground mb-8">
-              {article.content.introduction}
-            </p>
-
-            {article.content.sections.map((section, index) => (
-              <div key={index} className="mb-10">
-                <h2 className="text-3xl font-bold mb-4">{section.heading}</h2>
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  {section.content}
-                </p>
-              </div>
-            ))}
-
-            <div className="mt-12 p-6 rounded-2xl bg-muted border-l-4 border-accent">
-              <p className="text-lg leading-relaxed italic text-foreground">
-                {article.content.conclusion}
-              </p>
-            </div>
+          <div className="prose prose-lg max-w-none mb-16 animate-slide-up">
+            {article.content && (
+              <div 
+                className="text-lg leading-relaxed text-muted-foreground whitespace-pre-wrap"
+                dangerouslySetInnerHTML={{ __html: article.content.replace(/\n/g, '<br />') }}
+              />
+            )}
           </div>
 
           {/* Tags */}
-          <div className="mb-12 pb-12 border-b border-border">
-            <div className="flex flex-wrap gap-3">
-              {article.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-4 py-2 rounded-full text-sm bg-muted text-foreground"
-                >
-                  #{tag}
-                </span>
-              ))}
+          {article.tags && article.tags.length > 0 && (
+            <div className="mb-12 pb-12 border-b border-border">
+              <div className="flex flex-wrap gap-3">
+                {article.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-4 py-2 rounded-full text-sm bg-muted text-foreground"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Mobile Share Buttons */}
           <div className="md:hidden mb-12 pb-12 border-b border-border">
@@ -219,23 +274,9 @@ const Article = () => {
             </div>
           </div>
         </article>
-
-        {/* Related Articles */}
-        <section className="bg-muted py-16 animate-fade-in">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold mb-8 animate-slide-up">You might also like</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedArticles.map((relatedArticle, index) => (
-                <div key={relatedArticle.id} className={`animate-slide-up stagger-${Math.min(index + 1, 3)}`}>
-                  <ArticleCard {...relatedArticle} size="small" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   );
 };
 
-export default Article;
+export default ArticlePage;
