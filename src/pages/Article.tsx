@@ -46,7 +46,9 @@ const ArticlePage = () => {
         .maybeSingle();
 
       if (error) {
-        console.error("Error fetching article:", error);
+        if (import.meta.env.DEV) {
+          console.error("Error fetching article:", error);
+        }
         setNotFound(true);
       } else if (!data) {
         setNotFound(true);

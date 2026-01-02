@@ -29,7 +29,9 @@ const ArticlesSection = () => {
         .order("created_at", { ascending: false });
 
       if (error) {
-        console.error("Error fetching articles:", error);
+        if (import.meta.env.DEV) {
+          console.error("Error fetching articles:", error);
+        }
       } else {
         setArticles(data || []);
       }

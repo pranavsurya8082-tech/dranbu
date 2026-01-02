@@ -64,10 +64,10 @@ const Auth = () => {
       return;
     }
 
-    if (password.length < 6) {
+    if (password.length < 12) {
       toast({
         title: 'Error',
-        description: 'Password must be at least 6 characters',
+        description: 'Password must be at least 12 characters',
         variant: 'destructive',
       });
       return;
