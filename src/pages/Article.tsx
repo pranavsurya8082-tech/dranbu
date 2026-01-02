@@ -6,6 +6,7 @@ import { Facebook, Twitter, Linkedin, Link2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import DOMPurify from "dompurify";
 
 interface Article {
   id: string;
@@ -203,7 +204,9 @@ const ArticlePage = () => {
             {article.content && (
               <div 
                 className="text-lg leading-relaxed text-muted-foreground whitespace-pre-wrap"
-                dangerouslySetInnerHTML={{ __html: article.content.replace(/\n/g, '<br />') }}
+                dangerouslySetInnerHTML={{ 
+                  __html: DOMPurify.sanitize(article.content.replace(/\n/g, '<br />')) 
+                }}
               />
             )}
           </div>
