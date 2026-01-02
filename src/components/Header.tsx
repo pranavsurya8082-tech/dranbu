@@ -37,12 +37,6 @@ const Header = () => {
               Home
             </Link>
             <Link
-              to="/articles"
-              className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all"
-            >
-              Articles
-            </Link>
-            <Link
               to="/about"
               className="text-sm font-medium hover:bg-muted/60 rounded-full px-4 py-2 transition-all"
             >
@@ -140,9 +134,6 @@ const Header = () => {
             <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
               <Link to="/" className="text-sm font-medium hover:text-accent transition-colors">
                 Home
-              </Link>
-              <Link to="/articles" className="text-sm font-medium hover:text-accent transition-colors">
-                Articles
               </Link>
               <Link to="/about" className="text-sm font-medium hover:text-accent transition-colors">
                 About Me
